@@ -207,6 +207,7 @@ class gitlab::params {
   $ci_external_url         = undef
   $gitlab_ci_email_from    = undef
   $gitlab_ci_support_email = undef
+  $gitlab_server_url       = undef
   $gitlab_server           = undef
 
   $ci_redirect_http_to_https = undef

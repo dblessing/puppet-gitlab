@@ -872,6 +872,7 @@ class gitlab (
   $ci_external_url         = $::gitlab::params::ci_external_url,
   $gitlab_ci_email_from    = $::gitlab::params::gitlab_ci_email_from,
   $gitlab_ci_support_email = $::gitlab::params::gitlab_ci_support_email,
+  $gitlab_server_url       = $::gitlab::params::gitlab_server_url,
   $gitlab_server           = $::gitlab::params::gitlab_server,
 
   $ci_redirect_http_to_https = $::gitlab::params::ci_redirect_http_to_https,
@@ -1001,6 +1002,18 @@ class gitlab (
 
   if $postgresql_port and !$db_port {
     fail('if postgresql_port is specified, db_port must match')
+  }
+
+  if $gitlab_server_url {
+    if versioncmp( $gitlab_branch, '7.7.0') >= 0 {
+      fail("gitlab_server_url is only available in gitlab < 7.7.0, found \'${gitlab_branch}\'. Use gitlab_server instead.")
+    }
+  }
+
+  if $gitlab_server {
+    if versioncmp( $gitlab_branch, '7.7.0' ) < 0 {
+      fail("gitlab_server is only available in gitlab >= 7.7.0, found \'${gitlab_branch}\'. Use gitlab_server_url instead.")
+    }
   }
 
   # Ensure high_availability_mountpoint is only used with gitlab > 7.2.x

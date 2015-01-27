@@ -166,6 +166,8 @@ gitlab_rails['smtp_enable_starttls_auto'] = <%= @smtp_enable_starttls_auto %>
 <% end %><% if @gitlab_ci_support_email -%>gitlab_ci['gitlab_ci_support_email'] = '<%= @gitlab_ci_support_email %>'
 <% end %><% if @gitlab_server -%>
 gitlab_ci['gitlab_server'] = <%= @gitlab_server %>
+<% end %><% if @gitlab_server_url -%>
+gitlab_ci['gitlab_server_url'] = <%= @gitlab_server_url %>
 <% end -%>
 <% if @postgresql_enable == false || @mysql_enable == true -%>
 <% if @ci_db_adapter -%>gitlab_ci['db_adapter'] = '<%= @ci_db_adapter %>'
